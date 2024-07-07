@@ -60,6 +60,7 @@ pipeline {
             }
             steps {
                 script {
+                    sleep (time: 5)
                     def response = httpRequest (
                         url: "http://$KUBE_MASTER_IP:8081/",
                         timeout: 30
@@ -86,7 +87,7 @@ pipeline {
     }
     post {
         cleanup {
-            kubernetesDeploy(
+            kubernetesDeploy (
                 kubeconfigId: 'kubeconfig',
                 configs: 'train-schedule-kube-canary.yml',
                 enableConfigSubstitution: true
